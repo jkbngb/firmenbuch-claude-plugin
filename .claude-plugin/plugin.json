@@ -11,5 +11,14 @@
   "homepage": "https://www.agentic-firmenbuch.at/cowork.html",
   "repository": "https://github.com/jkbngb/firmenbuch-claude-plugin",
   "license": "MIT",
-  "keywords": ["firmenbuch", "handelsregister", "austria", "germany", "company-data", "mcp"]
+  "keywords": [
+    "firmenbuch",
+    "handelsregister",
+    "austria",
+    "germany",
+    "company-data",
+    "mcp"
+  ],
+  "icon": ".claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://www.agentic-firmenbuch.at/datenschutz.html"
 }
