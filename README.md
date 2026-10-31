@@ -1,5 +1,7 @@
 # Firmenbuch für Claude (Plugin)
 
+> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with six German skills. The product and its users are German-speaking, so this README is in German.
+
 Dieses Plugin verbindet Claude mit dem **österreichischen Firmenbuch** und dem **deutschen
 Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt sechs
 deutsche Skills mit, die Claude zeigen, welche Werkzeuge in welcher Reihenfolge zu verwenden sind.
