@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "firmenbuch": {
+      "type": "http",
+      "url": "https://mcp.agentic-firmenbuch.at/mcp"
+    }
+  }
+}
