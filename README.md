@@ -48,11 +48,14 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 
 ## Zugang und Preis
 
-50 Gratis-Credits für 7 Tage ab dem ersten Verbinden. Danach zwei Pläne, monatlich kündbar:
-**Solo** ab 29 € netto im Monat für unbegrenztes Nachschlagen (Suche, Firmendetails, Personen,
-Historie) und **Pro** ab 79 € netto im Monat mit zusätzlich CSV-Export, Jahresabschlüssen als
-Dokument und Peer-Vergleich (Fair Use). Verbindungstest, Feldreferenz und `get_my_usage` bleiben
-frei. Aktuelle Preise: https://www.agentic-firmenbuch.at/preise.html
+Dauerhaft gratis, ohne Karte und ohne Ablaufdatum: **10 Firmen pro Kalendermonat**, Suchtreffer bis
+10 Zeilen pro Abfrage. Eine Firma zählt pro Monat einmal, egal wie oft sie angesehen wird. Darüber
+hinaus zwei Pläne, monatlich kündbar: **Solo** für 29 € netto im Monat mit 500 Firmen pro Monat und
+100 Treffern pro Abfrage (Stammdaten, Organe, Kennzahlen, Historie, Personensuche), und **Pro** für
+79 € netto im Monat mit beliebig vielen Firmen im Rahmen der Fair Use, dazu Originaldokumente
+(Jahresabschluss im Volltext, Registerauszug als PDF), Peer-Suche und registerweite Statistik.
+Verbindungstest, Feldreferenz und `get_my_usage` bleiben immer frei. Aktuelle Preise:
+https://www.agentic-firmenbuch.at/preise.html
 
 ## Daten und Datenschutz
 
