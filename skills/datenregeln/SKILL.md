@@ -26,6 +26,14 @@ Begründung: `BEST_PRACTICES.md` im Plugin.
 - Ein Feld, das im Profil fehlt, bleibt in der Tabelle als „–" mit Grund; es wird nicht gestrichen
   und nicht geschätzt.
 
+## Nur Registerdaten
+
+- Jede Zahl und jede Erklärung stammt aus der Antwort des Servers. Nichts aus Vorwissen,
+  Geschäftsberichten, Websites oder anderen Quellen ergänzen, auch nicht als „bekannt".
+- Fehlt ein Abschluss, nur den Registerbefund nennen (`filing_years_available`, `has_pdf_only`,
+  `register_documents`, `reporting_status`); keine Vermutung über Rechtsform, Größe oder
+  Offenlegungspflicht als Grund.
+
 ## Jahr und Einheit
 
 - Jede Zahl mit ihrem Jahr. Umsatz (`revenue_year`) und Beschäftigte (`employees_year`) stammen

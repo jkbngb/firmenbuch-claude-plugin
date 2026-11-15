@@ -40,7 +40,8 @@ Grafik.
   Eigenkapitalquote in derselben Farbe.
 - **Claude Code:** eine Datei `kennzahlen-<register-id>.html` mit eingebettetem SVG in das
   Arbeitsverzeichnis schreiben und den Pfad nennen. Ist Python mit matplotlib vorhanden, zusätzlich
-  ein PNG. Keine Pakete installieren.
+  ein PNG. Keine Pakete installieren, nichts veröffentlichen (kein Artefakt, kein Upload), außer
+  ausdrücklich gewünscht.
 - **Reiner Text:** Tabelle mit Jahr, Wert und einem Balken aus `█`-Zeichen je Reihe, Skala
   angegeben.
 
@@ -53,5 +54,9 @@ Reihen), damit jede Zahl nachlesbar ist.
 - Beschäftigte nie in dieselbe Grafik wie Umsatz (verschiedene Jahre, siehe `datenregeln`).
 - Deutsche Firma ohne Zahlen (`reporting_status` nicht `available`): keine Grafik, ein Satz mit dem
   Grund. Nie eine leere Achse zeichnen.
+- Leere `metrics` bei einer österreichischen Firma: das Register hält die Abschlüsse nur als PDF
+  (`has_pdf_only`, `register_documents`) oder gar nicht. Ein Satz mit dem Befund, dann
+  `list_documents` → `get_document` anbieten. Keine Zahlen aus Geschäftsberichten, Websites oder
+  Vorwissen ersetzen, keine Vermutung über Gründe.
 - Zwei Firmen in einer Grafik nur bei gleicher Währung und gleicher Einheit; dann je Firma eine
   Farbe, nie Konzern- gegen Einzelabschluss.

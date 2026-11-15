@@ -16,6 +16,12 @@ Eingabe: Firmenname oder Register-ID.
    `financials.bilanz.<position>.history` (Jahr → Wert), `financials.guv.<position>.history`,
    `ratios.<kennzahl>.history`. Ein zweiter Aufruf ist nur nötig, wenn jemand **jede** UGB-Position
    will: dann `get_full_record` (Österreich, schwer, 300+ Positionen) und nur auf Nachfrage.
+   Vorher prüfen: `company.filing_years_available` 0 oder `filings` leer heißt, das Register hält
+   keinen maschinenlesbaren Abschluss. Dann **eine** Zeile mit dem Befund („kein Jahresabschluss im
+   Firmenbuch erfasst" / `reporting_status`-Grund), höchstens eine weitere Suche nach einer nahe
+   liegenden Schwester- oder Holdinggesellschaft, und keine Vermutung über Rechtsform oder
+   Offenlegungspflicht. Trägt `financials.register_documents` nur PDFs (Konzernabschluss, Protokolle),
+   so sagen und `get_document` anbieten.
 3. Jahre = die Schlüssel der `history`-Objekte, maximal die fünf jüngsten, **neuestes Jahr links**.
    Ein Jahr ohne Abschluss bekommt keine Spalte und wird unter der Tabelle genannt („2021: kein
    Abschluss eingereicht"). Nie interpolieren.
@@ -91,3 +97,6 @@ Originaldokument (`list_documents` → `get_document`).
 - Deutsche Firma ohne Zahlen: nur der Kopf und eine Zeile mit dem `reporting_status`-Grund; nie eine
   Tabelle voller Nullen.
 - Tausenderpunkt, kein Komma bei T€-Beträgen („12.345"), negative Beträge mit Minus („-1.234").
+- Die Spalte „Trend" nur, wenn mindestens zwei Jahre vorliegen; bei einem Jahr „–", auch wenn der
+  Server einen `trend`-Wert liefert. Liegt nur ein Jahr maschinenlesbar vor, das im Kopf sagen und
+  die PDF-Jahre aus `filings[]` / `register_documents` nennen.

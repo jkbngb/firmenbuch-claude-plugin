@@ -7,14 +7,19 @@ description: Eine Firma als standardisierte Firmenkarte darstellen, eine kompakt
 
 Beispiel: „Zeig mir die Firmenkarte der Red Bull GmbH." · „Kurzprofil der Siemens AG, München."
 
-Eingabe: Firmenname, Firmenbuchnummer oder Register-ID (`AT:<fnr>` / `DE:<Gericht>_<Art><Nummer>`).
+Eingabe: Firmenname, Firmenbuchnummer oder Register-ID (`AT:<fnr>` / `DE:<Gerichtscode>_<Art><Nummer>`,
+z. B. `DE:D2601_HRB6684`). Der deutsche Gerichtscode (`D2601`) ist nicht der Gerichtsname: aus
+„Amtsgericht München HRB 6684" nie eine ID bauen, sondern mit `filters.name` plus
+`filters.registergericht` „München" suchen und die `company_id` aus der Trefferkarte übernehmen.
 
 ## Vorgehen
 
 1. `search_companies` mit `filters.name`, `page_size` 3 (jede ausgelieferte Firma zählt auf das
    Monatsbudget). Bei mehreren plausiblen Treffern den wahrscheinlichsten nehmen und die anderen
    in einer Zeile nennen; eine Register-ID direkt verwenden.
-2. `get_company_details` für genau diese ID. Nichts weiter laden; Historie und Dokumente nur anbieten.
+2. `get_company_details` für genau diese ID, bei einer deutschen Firma mit `max_signatories` 3 (die
+   Karte zeigt nur die erste Person; ohne Kappung kommen bis zu 15 Organe und 50 KB zurück). Nichts
+   weiter laden; Historie und Dokumente nur anbieten.
 
 ## Ausgabe: immer dieselbe Tabelle, immer dieselbe Zeilenfolge
 
@@ -33,7 +38,7 @@ Zeile erfinden.
 | **Stammkapital** | `company.stammkapital` | `company.stammkapital` |
 | **Branche** | `industry.oenace.section` + `section_label_de`, dann `division` + `division_label_de` (ÖNACE 2025 = NACE Rev. 2.1) | `industry.section` + `section_label` (WZ = NACE); `division` oft leer |
 | **Tätigkeit** | `industry.geschaeftszweig` (Freitext des Registers) | `gegenstand` (Unternehmensgegenstand), auf zwei Zeilen gekürzt |
-| **Geschäftsführung** | `management.primary_manager` (Name, Funktion, Vertretung) und `n_signatories_latest` als „+ n weitere" | `management.primary_manager_name`, `n_signatories_latest`; Hinweis bei `signatories_truncated` |
+| **Geschäftsführung** | `management.primary_manager` (Name, Funktion, Vertretung) und `n_signatories_latest` als „+ n weitere" (keine weiteren Namen) | `management.primary_manager_name` und `n_signatories_latest` als „+ n weitere" (keine weiteren Namen) |
 | **Größenklasse** | `size.gkl` (W Kleinst, K Klein, M Mittel, G Groß nach UGB) | `size.gkl` (kleinst/klein/mittel/groß nach HGB), nur mit Abschluss |
 | **Letzter Abschluss** | `financials.latest_year`, `filings[0].stichtag` | `financials.latest_year` oder `financials.reporting_status` |
 | **Bilanzsumme** | `financials.latest.bilanzsumme` | `financials.latest.bilanzsumme` |
@@ -57,5 +62,7 @@ sehr alte Mitarbeiterzahl, nur Bilanz ohne GuV, Konzernabschluss). Dann anbieten
   („– noch nicht erfasst"). **Nie „0", nie „keine Umsätze".**
 - Fehlende österreichische GuV (`has_guv_latest` false): Umsatz „– verkürzte GuV / nur Bilanz".
 - Bei `financials.konzern` true: Zeile „Bilanzsumme" mit Zusatz „(Konzern)".
+- Nur Registerdaten in der Karte und in den drei Sätzen: nichts aus Vorwissen, Websites oder
+  Geschäftsberichten ergänzen, keine Vermutung, warum ein Abschluss fehlt.
 - Personen: nur Name, Funktion, Geburtsjahr-genaues Alter, wie geliefert. Keine Suche nach weiteren
   Personendaten, keine Zusammenführung über andere Quellen.
