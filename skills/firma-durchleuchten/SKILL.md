@@ -16,4 +16,4 @@ Vorgehen:
 4. Dann `list_documents` für die vorliegenden Urkunden und Jahresabschlüsse (bei einer deutschen Firma `get_document` für den amtlichen Registerauszug).
 5. Dokumenttexte (`get_document_text`) nur auf Nachfrage laden.
 
-Ergebnis: Stammdaten, Organe, Kennzahlen mit Entwicklung, letzte Registeränderungen, auffällige Punkte. Zum Schluss anbieten, die Firma mit `find_peers` zu vergleichen oder ein Dokument zu lesen.
+Ergebnis: zuerst die Firmenkarte (Schema aus `firmenkarte`), dann die Mehrjahrestabelle (Schema aus `bilanz-tabelle`, Kurzform), letzte Registeränderungen, auffällige Punkte; Zahlen nach `datenregeln`. Zum Schluss anbieten, die Firma mit `find_peers` zu vergleichen oder ein Dokument zu lesen.

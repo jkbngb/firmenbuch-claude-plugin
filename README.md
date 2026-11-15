@@ -1,10 +1,12 @@
 # Firmenbuch für Claude (Plugin)
 
-> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with six German skills. The product and its users are German-speaking, so this README is in German.
+> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with eleven German skills: six workflows (screen, deep-dive, peers, person search, watch, CSV) and five output formats (standardised company card, multi-year balance-sheet table, key-figure chart, sector comparison, data rules), plus `BEST_PRACTICES.md`. The product and its users are German-speaking, so this README is in German.
 
 Dieses Plugin verbindet Claude mit dem **österreichischen Firmenbuch** und dem **deutschen
-Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt sechs
-deutsche Skills mit, die Claude zeigen, welche Werkzeuge in welcher Reihenfolge zu verwenden sind.
+Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt elf
+deutsche Skills mit: sechs Arbeitsabläufe, die Claude zeigen, welche Werkzeuge in welcher
+Reihenfolge zu verwenden sind, und fünf Ausgabeformate, die jede Antwort gleich aufbauen, damit
+sie überfliegbar und zwischen Firmen und Ländern vergleichbar ist.
 
 Österreich: alle eingetragenen Firmen mit Jahresabschlüssen, Kennzahlen, Organen und Urkunden.
 Deutschland: Stammdaten aller Handelsregisterfirmen; Jahresabschlüsse Bundesland für Bundesland im
@@ -31,6 +33,8 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 
 ## Skills
 
+**Arbeitsabläufe** (welche Werkzeuge, in welcher Reihenfolge):
+
 | Skill | Was er tut |
 |---|---|
 | `firmen-screenen` | Firmenliste nach Branche, Bundesland und Mindestgröße erstellen |
@@ -40,11 +44,25 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 | `neue-firmen-beobachten` | Neugründungen und Registeränderungen einer Branche in einer Region verfolgen |
 | `liste-als-csv` | Eine gefilterte Firmenliste prüfen und als CSV exportieren |
 
+**Ausgabeformate** (wie das Ergebnis aussieht, immer gleich aufgebaut):
+
+| Skill | Was er tut |
+|---|---|
+| `firmenkarte` | Eine Firma als standardisierte Karte: 18 feste Zeilen von Rechtsform bis Datenstand, Österreich und Deutschland gleich |
+| `bilanz-tabelle` | Bilanz, GuV und Kennzahlen als Mehrjahrestabelle (bis fünf Jahre, feste Positionen, T€, Aufwände negativ) |
+| `kennzahlen-grafik` | Bilanzsumme, Eigenkapital, Umsatz, Ergebnis und Quoten über die Jahre als Grafik (Artefakt, Datei oder Text) |
+| `branchen-vergleich` | Die Firma gegen Firmen derselben Branche (NACE-Abschnitt oder enger) und Größenklasse: Tabelle, Median, Rang |
+| `datenregeln` | Die Regeln für jede Zahl: fehlende Werte nie als 0, Jahr und Einheit, Vorzeichen, Budget, Personen |
+
+Die Begründung hinter den Formaten steht in [`BEST_PRACTICES.md`](BEST_PRACTICES.md).
+
 ## Beispiele
 
 - „Aktive GmbHs in Oberösterreich mit Bilanzsumme über 5 Mio. €, sortiert nach Umsatz."
 - „Vergleiche die Red Bull GmbH mit ihren Peers derselben Größenklasse und zeige die Kennzahlenentwicklung."
 - „Welche Unternehmen in Bayern hatten im letzten Monat einen Geschäftsführerwechsel?"
+- „Firmenkarte der Palfinger AG." · „Bilanz und GuV der letzten fünf Jahre als Tabelle."
+- „Zeichne die Umsatz- und Ergebnisentwicklung." · „Wie steht die Firma in ihrer Branche da?"
 
 ## Zugang und Preis
 
