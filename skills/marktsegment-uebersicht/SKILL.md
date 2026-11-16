@@ -1,6 +1,6 @@
 ---
 name: marktsegment-uebersicht
-description: Einen Teilmarkt (Branche nach NACE/ÖNACE/WZ, Region, Größenband) aus dem Register vermessen: Zahl der Firmen, Verteilung nach Bundesland und Größenklasse, die größten Firmen und ihr Anteil, Wachstumsprofile. Verwenden, wenn jemand eine Marktübersicht, Marktgröße, Branchenstruktur, Fragmentierung, „wie viele Firmen gibt es in …", eine Marktlandkarte oder einen Vergleich mehrerer Teilsegmente möchte.
+description: Einen Teilmarkt (Branche nach NACE/ÖNACE/WZ, Region, Größenband) aus dem Register vermessen, mit der Zahl der Firmen, Verteilung nach Bundesland und Größenklasse, die größten Firmen und ihr Anteil, Wachstumsprofile. Verwenden, wenn jemand eine Marktübersicht, Marktgröße, Branchenstruktur, Fragmentierung, „wie viele Firmen gibt es in …", eine Marktlandkarte oder einen Vergleich mehrerer Teilsegmente möchte.
 ---
 
 # Marktsegment-Übersicht
