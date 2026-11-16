@@ -36,11 +36,14 @@ Kennzeichen je Firma, keine Vorauswahl, keine Bewertung von Personen.
    `bilanzsumme_min`/`_max`, `employees_min`/`_max`), optional `nace_section`/`nace_division`,
    `has_guv_latest` true wenn Umsatz oder EBITDA gebraucht werden. Trefferzahl nennen; jede Firma
    zählt einmal im Monat auf das Budget.
-3. **Nachfolgesignal eingrenzen (Österreich)**: dieselbe Suche mit `gf_age_min` (Alter des
-   erstgereihten Geschäftsführers, z. B. 60). Nur eine Führungsperson wird dabei geprüft; das
-   Kennzeichen `family_successor` steht auf jeder Trefferkarte und wird in der Liste gezeigt, es
-   ist kein Suchfilter. Für Führungswechsel oder Umgründungen im Zeitfenster: `event_signal`
-   `["leadership_change"]` bzw. `["restructuring", "capital_raise"]` mit `event_since` (Pro).
+3. **Nachfolgesignal eingrenzen (Österreich)**: dieselbe Suche mit `any_officer_age_min` (Alter
+   des ältesten führenden Organs, z. B. 60; `gf_age_min` prüft nur die erstgereihte Person) und
+   `family_successor` `false` (keine jüngere namensgleiche Person im Organ; Firmen ohne prüfbares
+   Organ bleiben in der Liste und tragen auf der Karte `family_successor` `null`). Beide sind
+   Server-Filter; das Kennzeichen `family_successor` steht weiterhin auf jeder Trefferkarte und
+   wird in der Liste gezeigt. Für Führungswechsel oder Umgründungen im Zeitfenster:
+   `event_signal` `["leadership_change"]` bzw. `["restructuring", "capital_raise"]` mit
+   `event_since` (Pro).
 4. **Blättern**: `sort` `{field: "revenue", descending: true}`, `page_size` 25 (Solo 100), `page`
    hochzählen bis zur gewünschten Zahl. Über 100 Firmen vorher in einem Satz bestätigen lassen.
 5. **Vertiefen** nur für die Firmen, die jemand ansehen will: `get_company_details` liefert
@@ -55,8 +58,8 @@ Kennzeichen je Firma, keine Vorauswahl, keine Bewertung von Personen.
 |---|---|---|---:|---:|---|---|---|---|
 
 - **Ältestes führendes Organ**: Geburtsjahr aus `officer_screen.oldest_leader_birth_year`
-  („Jg. 1958"), ohne Namen. In der Suchliste nur, wenn `gf_age_min` gesetzt war (dann erfüllt jede
-  Zeile die Altersgrenze); sonst aus der Vertiefung.
+  („Jg. 1958"), ohne Namen. In der Suchliste nur, wenn `any_officer_age_min` gesetzt war (dann
+  erfüllt jede Zeile die Altersgrenze); sonst aus der Vertiefung.
 - **Jüngere Namensgleiche**: `family_successor` → „nein" (Kandidat), „ja", „nicht prüfbar" (nur ein
   Organ oder kein Geburtsjahr). „Nicht prüfbar" bleibt in der Liste; es heißt nie „keine Nachfolge".
 - **Signale**: aus den Trefferkarten und Ereignissen, als Kürzel, jedes mit Datum wo vorhanden:
