@@ -57,7 +57,7 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 |---|---|
 | `firmenkarte` | Eine Firma als standardisierte Karte: 18 feste Zeilen von Rechtsform bis Datenstand, Österreich und Deutschland gleich |
 | `bilanz-tabelle` | Bilanz, GuV und Kennzahlen als Mehrjahrestabelle (bis fünf Jahre, feste Positionen, T€, Aufwände negativ) |
-| `kennzahlen-grafik` | Bilanzsumme, Eigenkapital, Umsatz, Ergebnis und Quoten über die Jahre als Grafik aus einer festen Vorlage (Artefakt in claude.ai, Datei in Claude Code) |
+| `kennzahlen-grafik` | Bilanzsumme, Eigenkapital, Umsatz, Ergebnis und Quoten über die Jahre als Grafik, vom Server fertig gezeichnet (`chart_company_history`) und direkt im Gespräch gezeigt; die Zahlen dazu als Tabelle |
 | `branchen-vergleich` | Die Firma gegen Firmen derselben Branche (NACE-Abschnitt oder enger) und Größenklasse: Tabelle, Median, Rang, Perzentile |
 | `datenregeln` | Die fünf Regeln für jede Zahl: nur Registerdaten, fehlende Werte nie als 0, Jahr und Einheit, keine Feldnamen |
 
@@ -69,7 +69,7 @@ Die Begründung hinter den Formaten steht in [`BEST_PRACTICES.md`](BEST_PRACTICE
 |---|---|
 | „Firmenkarte der Red Bull GmbH." | Eine Tabelle mit 18 Zeilen: Rechtsform, Sitz, Register-ID, Branche, Geschäftsführung, Größe, letzter Abschluss, Bilanzsumme, Eigenkapitalquote, Umsatz, Datenstand |
 | „Bilanz und GuV der Hermann Pfanner Getränke GmbH als Tabelle." | Drei Tabellen (Bilanz, GuV, Kennzahlen), bis fünf Jahre nebeneinander, Trend |
-| „Zeichne die Entwicklung von Umsatz und Ergebnis der Red Bull GmbH." | Zuerst die Zahlen als Tabelle, dann zwei Grafiken (Beträge als Balken, Quoten als Linien) |
+| „Zeichne die Entwicklung von Umsatz und Ergebnis der Red Bull GmbH." | Eine fertige Grafik im Gespräch (Beträge als Balken, Quoten als Linien, Quelle und Datenstand) und die Zahlen als Tabelle |
 | „Wie steht die Adolf Darbo AG in ihrer Branche da?" | Tabelle mit zehn Vergleichsfirmen derselben Branche und Größe, Median, Rang; auf Wunsch Perzentile |
 | „Alle aktiven Getränkehersteller in Österreich über 10 Mio. € Bilanzsumme als Excel." | Eine Excel-Datei mit allen Firmen und 24 Spalten, dazu ein Blatt mit Abfrage, Datum und Quelle |
 | „Firmen in Oberösterreich mit 15 bis 80 Mio. € Umsatz, deren Geschäftsführung über 60 ist und die keinen Nachfolger im Organ haben." | Eine Liste mit Kennzeichen je Firma (ältestes führendes Organ als Jahrgang, jüngere Namensgleiche ja/nein/nicht prüfbar, Führungswechsel, Umgründung), ohne Personennamen und ohne Score |
