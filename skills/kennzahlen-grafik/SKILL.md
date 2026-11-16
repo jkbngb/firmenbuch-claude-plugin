@@ -68,7 +68,7 @@ installieren). Reihe `rohergebnis` statt `umsatzerloese`: Schlüssel „Rohergeb
 - **Reiner Text (kein Bild möglich):** die Tabelle aus der Antwort, je Reihe ein Balken aus
   `█`-Zeichen mit Skala.
 
-## Fünf Regeln, die in jeder Antwort gelten
+## Sechs Regeln, die in jeder Antwort gelten
 
 1. **Nur Registerdaten.** Jede Zahl und jeder Satz stammt aus der Antwort des Servers. Nichts aus
    Vorwissen, Websites oder Geschäftsberichten ergänzen, auch nicht als „bekanntlich".
@@ -77,10 +77,13 @@ installieren). Reihe `rohergebnis` statt `umsatzerloese`: Schlüssel „Rohergeb
    Konzern oder Offenlegungspflicht als Grund.
 3. **Nie 0 für einen fehlenden Wert.** „–" mit dem Grund in zwei Worten.
 4. **Jede Zahl mit Jahr und Einheit.** T€ mit Tausenderpunkt („12.345 T€ (2024)"), über 100 Mio. €
-   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle.
+   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle. **Filterwerte sind
+   Euro, nicht T€** (15 Mio. € Umsatz = `revenue_min: 15000000`), Quoten als Bruch (35 % = `0.35`).
 5. **Keine Feldnamen des Servers in der Antwort.** Nicht `has_pdf_only`, `series_sign_flip`,
    `reporting_status`, `filing_years_available`, sondern Worte: „nur als PDF hinterlegt",
    „Vorzeichen vereinheitlicht", „kein Abschluss veröffentlicht".
+6. **Antwort im Gespräch.** Kein Artefakt, keine Veröffentlichung, keine Datei und kein Upload,
+   außer der Skill sieht es ausdrücklich vor oder jemand bittet darum.
 
 ## Weitere Regeln
 

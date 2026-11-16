@@ -1,6 +1,6 @@
 ---
 name: marktsegment-uebersicht
-description: Einen Teilmarkt (Branche nach NACE/ÖNACE/WZ, Region, Größenband) aus dem Register vermessen, mit der Zahl der Firmen, Verteilung nach Bundesland und Größenklasse, die größten Firmen und ihr Anteil, Wachstumsprofile. Verwenden, wenn jemand eine Marktübersicht, Marktgröße, Branchenstruktur, Fragmentierung, „wie viele Firmen gibt es in …", eine Marktlandkarte oder einen Vergleich mehrerer Teilsegmente möchte.
+description: Einen Teilmarkt (Branche nach NACE/ÖNACE/WZ, Region, Größenband) aus dem Register vermessen, mit der Zahl der Firmen, Verteilung nach Bundesland und Größenklasse, die größten Firmen und ihr Anteil, Wachstumsprofile. Verwenden, wenn jemand fragt „wie groß ist der Markt", „wie viele Firmen gibt es in", nach Marktstruktur, Marktgröße, Branchenstruktur, Fragmentierung, Konzentration, den größten Firmen einer Branche, einer Verteilung nach Bundesland oder Größenklasse, einer Marktlandkarte oder einem Vergleich mehrerer Teilsegmente. Nicht für eine einfache Firmenliste (dafür firmen-screenen).
 ---
 
 # Marktsegment-Übersicht
@@ -71,7 +71,7 @@ die Reihenfolge ist die Zahl der Firmen im Größenband.
 Anbieten: `nachfolge-screening` für ein Segment, `recherche-excel` für die vollständige Liste,
 `branchen-vergleich` für eine einzelne Firma.
 
-## Fünf Regeln, die in jeder Antwort gelten
+## Sechs Regeln, die in jeder Antwort gelten
 
 1. **Nur Registerdaten.** Jede Zahl und jeder Satz stammt aus der Antwort des Servers. Nichts aus
    Vorwissen, Websites oder Geschäftsberichten ergänzen, auch nicht als „bekanntlich".
@@ -80,10 +80,13 @@ Anbieten: `nachfolge-screening` für ein Segment, `recherche-excel` für die vol
    Konzern oder Offenlegungspflicht als Grund.
 3. **Nie 0 für einen fehlenden Wert.** „–" mit dem Grund in zwei Worten.
 4. **Jede Zahl mit Jahr und Einheit.** T€ mit Tausenderpunkt („12.345 T€ (2024)"), über 100 Mio. €
-   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle.
+   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle. **Filterwerte sind
+   Euro, nicht T€** (15 Mio. € Umsatz = `revenue_min: 15000000`), Quoten als Bruch (35 % = `0.35`).
 5. **Keine Feldnamen des Servers in der Antwort.** Nicht `has_pdf_only`, `series_sign_flip`,
    `reporting_status`, `filing_years_available`, sondern Worte: „nur als PDF hinterlegt",
    „Vorzeichen vereinheitlicht", „kein Abschluss veröffentlicht".
+6. **Antwort im Gespräch.** Kein Artefakt, keine Veröffentlichung, keine Datei und kein Upload,
+   außer der Skill sieht es ausdrücklich vor oder jemand bittet darum.
 
 ## Weitere Regeln
 

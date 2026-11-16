@@ -1,13 +1,13 @@
 ---
 name: firmen-screenen
-description: Firmenliste nach Branche, Bundesland und Mindestgröße erstellen. Verwenden, wenn eine Screening-Liste von Firmen aus Österreich oder Deutschland gefragt ist (Branche, Region, Bilanzsumme, Umsatz, Beschäftigte).
+description: Firmenliste nach Branche, Bundesland und Mindestgröße erstellen. Verwenden, wenn eine Screening-Liste von Firmen aus Österreich oder Deutschland gefragt ist (Branche, Region, Bilanzsumme, Umsatz, Beschäftigte). Nicht für Marktgröße, Marktstruktur oder Zählungen nach Bundesland (dafür marktsegment-uebersicht), nicht für Nachfolgesignale (nachfolge-screening), nicht für eine Excel-Datei (recherche-excel).
 ---
 
 # Firmen screenen
 
 Beispiel: „Welche aktiven GmbHs in Oberösterreich haben eine Bilanzsumme über 5 Mio. €?"
 
-Eingaben: Branche (Pflicht), Bundesland (leer für alle), Mindestgröße (z. B. Bilanzsumme über 5 Mio. € oder mehr als 50 Beschäftigte, leer für keine).
+Eingaben: Branche (Pflicht), Bundesland (leer für alle), Mindestgröße (z. B. Bilanzsumme über 5 Mio. € oder mehr als 50 Beschäftigte, leer für keine). Filterwerte sind Euro: 5 Mio. € = `5000000`.
 
 Vorgehen:
 1. Zuerst `list_sectors` mit der Branche aufrufen und den passenden Branchencode übernehmen.
