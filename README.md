@@ -1,10 +1,10 @@
 # Firmenbuch für Claude (Plugin)
 
-> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with twelve German skills: seven workflows (screen, deep-dive, peers, person search, watch, CSV, research into Excel) and five output formats (standardised company card, multi-year balance-sheet table, key-figure chart from a fixed template, sector comparison, data rules), plus `BEST_PRACTICES.md`. The product and its users are German-speaking, so this README is in German.
+> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with fourteen German skills: nine workflows (screen, deep-dive, peers, person search, watch, CSV, research into Excel, succession screening, market-segment overview) and five output formats (standardised company card, multi-year balance-sheet table, key-figure chart from a fixed template, sector comparison, data rules), plus `BEST_PRACTICES.md`. The product and its users are German-speaking, so this README is in German.
 
 Dieses Plugin verbindet Claude mit dem **österreichischen Firmenbuch** und dem **deutschen
-Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt zwölf
-deutsche Skills mit: sieben Arbeitsabläufe, die Claude zeigen, welche Werkzeuge in welcher
+Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt vierzehn
+deutsche Skills mit: neun Arbeitsabläufe, die Claude zeigen, welche Werkzeuge in welcher
 Reihenfolge zu verwenden sind, und fünf Ausgabeformate, die jede Antwort gleich aufbauen, damit
 sie überfliegbar und zwischen Firmen und Ländern vergleichbar ist.
 
@@ -48,6 +48,8 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 | `neue-firmen-beobachten` | Neugründungen und Registeränderungen einer Branche in einer Region verfolgen |
 | `liste-als-csv` | Eine gefilterte Firmenliste prüfen und als CSV exportieren |
 | `recherche-excel` | Viele Firmen nach Kriterien recherchieren und alle Stammdaten und Kennzahlen als Excel-Datei liefern (zwei Blätter: Firmen, Abfrage) |
+| `nachfolge-screening` | Firmen mit Nachfolgesignalen aus dem Register (alternde Führung, keine jüngere namensgleiche Person im Organ, Führungswechsel, Umgründung) in Region und Größenband, als Liste mit Kennzeichen statt Ausschlüssen |
+| `marktsegment-uebersicht` | Einen Teilmarkt vermessen: Zahl der Firmen nach Bundesland und Größenklasse, die zehn größten und ihr Anteil, Wachstumsprofile; mehrere Segmente im Vergleich |
 
 **Ausgabeformate** (wie das Ergebnis aussieht, immer gleich aufgebaut):
 
@@ -70,6 +72,8 @@ Die Begründung hinter den Formaten steht in [`BEST_PRACTICES.md`](BEST_PRACTICE
 | „Zeichne die Entwicklung von Umsatz und Ergebnis der Red Bull GmbH." | Zuerst die Zahlen als Tabelle, dann zwei Grafiken (Beträge als Balken, Quoten als Linien) |
 | „Wie steht die Adolf Darbo AG in ihrer Branche da?" | Tabelle mit zehn Vergleichsfirmen derselben Branche und Größe, Median, Rang; auf Wunsch Perzentile |
 | „Alle aktiven Getränkehersteller in Österreich über 10 Mio. € Bilanzsumme als Excel." | Eine Excel-Datei mit allen Firmen und 24 Spalten, dazu ein Blatt mit Abfrage, Datum und Quelle |
+| „Firmen in Oberösterreich mit 15 bis 80 Mio. € Umsatz, deren Geschäftsführung über 60 ist und die keinen Nachfolger im Organ haben." | Eine Liste mit Kennzeichen je Firma (ältestes führendes Organ als Jahrgang, jüngere Namensgleiche ja/nein/nicht prüfbar, Führungswechsel, Umgründung), ohne Personennamen und ohne Score |
+| „Wie groß ist der Maschinenbau in Bayern, nach Regierungsbezirk und Größe?" | Zählungen nach Region und Größenklasse, die zehn größten Firmen mit Anteil, Wachstumsprofile |
 | „Welche Firmen in Bayern hatten im letzten Monat einen Geschäftsführerwechsel?" | Eine Liste der Registeränderungen mit Datum und Firma |
 | „Wo ist Max Mustermann Geschäftsführer?" | Die Firmen mit dieser Organfunktion, mit dem Hinweis, dass gleiche Namen nicht dieselbe Person sind |
 
