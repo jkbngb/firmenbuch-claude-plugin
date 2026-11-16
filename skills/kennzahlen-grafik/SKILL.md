@@ -10,7 +10,8 @@ Eigenkapitalquote der letzten Jahre als Chart."
 
 Eingabe: Firmenname oder Register-ID, optional die gewünschten Kennzahlen.
 
-Die Gestaltung ist entschieden: die Datei `template.html` neben dieser Datei zeichnet zwei Grafiken
+Die Gestaltung ist entschieden: die Vorlage in `vorlage.md` neben dieser Datei (ein HTML-Dokument in einem
+Codeblock) zeichnet zwei Grafiken
 (Balken für Beträge, Linien für Quoten) samt Tabellen und Fußzeile aus **einem Datenblock**. Die
 Aufgabe ist, die Zahlen zu holen und den Datenblock zu füllen. **Kein eigenes HTML, SVG, React oder
 Python schreiben, nichts am Aussehen entscheiden.** Das hält die Antwort unter einer Minute und
@@ -26,8 +27,9 @@ macht jede Grafik gleich.
 3. **Zuerst die Zahlen als Text**: eine Tabelle Kennzahl × Jahr (Beträge in T€ oder Mio. €, Quoten
    in %), neuestes Jahr rechts, Quelle und Datenstand darunter. Damit hat die Person die Werte, auch
    wenn sie die Grafik nicht öffnet.
-4. **Dann die Grafik aus der Vorlage**: `template.html` lesen (im Ordner dieses Skills, in Claude
-   Code `${CLAUDE_PLUGIN_ROOT}/skills/kennzahlen-grafik/template.html`), nur den Block zwischen
+4. **Dann die Grafik aus der Vorlage**: `vorlage.md` lesen (im Ordner dieses Skills, in Claude
+   Code `${CLAUDE_PLUGIN_ROOT}/skills/kennzahlen-grafik/vorlage.md`), das HTML aus dem Codeblock
+   nehmen, nur den Block zwischen
    `// === DATEN` und `// === Ende DATEN` ersetzen, sonst nichts ändern.
 
 ```js

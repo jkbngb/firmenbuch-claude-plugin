@@ -115,7 +115,7 @@ automatisiert verarbeitet und ohne Gewähr bereitgestellt; maßgeblich ist der a
 
 Eine Grafik, die Claude jedes Mal neu entwirft, dauert Minuten, kostet ein Vielfaches und sieht
 jedes Mal anders aus. Darum zeichnet `kennzahlen-grafik` aus der festen Vorlage
-`skills/kennzahlen-grafik/template.html`: zwei Grafiken (Beträge als Balken, Quoten als Linien),
+`skills/kennzahlen-grafik/vorlage.md` (ein HTML-Dokument in einem Codeblock): zwei Grafiken (Beträge als Balken, Quoten als Linien),
 Tabellen und Fußzeile entstehen aus **einem Datenblock**, den Claude füllt. Nichts am Aussehen wird
 entschieden, kein eigenes HTML, SVG, React oder Python geschrieben. In claude.ai, Claude Desktop und
 Cowork erscheint die gefüllte Vorlage als Artefakt, in Claude Code als Datei. Vor der Grafik stehen

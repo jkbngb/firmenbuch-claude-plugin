@@ -1,3 +1,8 @@
+# Vorlage der Kennzahlen-Grafik
+
+Die Datei zwischen den Zäunen ist die vollständige Vorlage. Sie wird unverändert übernommen; nur der Block zwischen `// === DATEN` und `// === Ende DATEN` wird mit den Werten der Firma gefüllt. (Als Markdown abgelegt, weil das Claude-Verzeichnis in Plugins nur Markdown, Text, JSON, YAML und Bilder zulässt.)
+
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -164,3 +169,4 @@ const DATA = {
 </script>
 </body>
 </html>
+```
