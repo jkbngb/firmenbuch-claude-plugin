@@ -76,15 +76,31 @@ Einreichung nach § 279 UGB / § 326 HGB"). Positionen aus `financials.guv`:
 | Eigenkapitalrendite (`roe`) | | | | |
 | Personalkostenquote (`personalkostenquote`) | | | | |
 
-Dann zwei bis vier Sätze: Richtung der Bilanzsumme und des Eigenkapitals, Ergebnislage, ein
-auffälliger Punkt. Danach anbieten: Grafik (`kennzahlen-grafik`), Vergleich (`branchen-vergleich`),
+Dann zwei bis drei Sätze, **jeder zu einer Zeile der Tabelle**: Richtung der Bilanzsumme und des
+Eigenkapitals, Ergebnislage, ein auffälliger Punkt. Keine Erklärung von Ursachen, die nicht in der
+Tabelle stehen. Danach anbieten: Grafik (`kennzahlen-grafik`), Vergleich (`branchen-vergleich`),
 Originaldokument (`list_documents` → `get_document`).
 
-## Regeln
+## Fünf Regeln, die in jeder Antwort gelten
+
+1. **Nur Registerdaten.** Jede Zahl und jeder Satz stammt aus der Antwort des Servers. Nichts aus
+   Vorwissen, Websites oder Geschäftsberichten ergänzen, auch nicht als „bekanntlich".
+2. **Fehlt ein Abschluss, nur der Befund.** Ein Satz: „Kein Jahresabschluss im Firmenbuch erfasst
+   (Stand <Datum>)" oder „Abschlüsse nur als PDF hinterlegt". Keine Vermutung über Rechtsform, Größe,
+   Konzern oder Offenlegungspflicht als Grund.
+3. **Nie 0 für einen fehlenden Wert.** „–" mit dem Grund in zwei Worten.
+4. **Jede Zahl mit Jahr und Einheit.** T€ mit Tausenderpunkt („12.345 T€ (2024)"), über 100 Mio. €
+   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle.
+5. **Keine Feldnamen des Servers in der Antwort.** Nicht `has_pdf_only`, `series_sign_flip`,
+   `reporting_status`, `filing_years_available`, sondern Worte: „nur als PDF hinterlegt",
+   „Vorzeichen vereinheitlicht", „kein Abschluss veröffentlicht".
+
+## Weitere Regeln
 
 - **Aufwände werden negativ geliefert** (Materialaufwand, Personalaufwand, Abschreibungen), seit
   2026-11-04 unabhängig vom Einreicher. So auch anzeigen, nicht umdrehen. `financials.anomalies`
-  mit `expense_sign_normalised` ist Herkunftsangabe, kein Mangel.
+  ist Herkunftsangabe für die Pipeline und wird **nie zitiert**, weder Name noch Wert; wenn ein
+  Hinweis nötig ist, ein Satz in Worten („Aufwände sind mit Minus ausgewiesen").
 - Eine Zeile, deren Position im Datensatz fehlt, bleibt mit „–" stehen; „davon"-Zeilen ohne jeden
   Wert dürfen entfallen. Deutsche Abschlüsse tragen meist nur die Hauptpositionen.
 - Abgeleitete Größen (`ebitda`, `ebit_strict`) fehlen absichtlich, wenn `guv_konfidenz` `low` ist:

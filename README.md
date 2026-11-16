@@ -1,12 +1,16 @@
 # Firmenbuch für Claude (Plugin)
 
-> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with eleven German skills: six workflows (screen, deep-dive, peers, person search, watch, CSV) and five output formats (standardised company card, multi-year balance-sheet table, key-figure chart, sector comparison, data rules), plus `BEST_PRACTICES.md`. The product and its users are German-speaking, so this README is in German.
+> English: the official Austrian company register (Firmenbuch) and the German commercial register (Handelsregister) inside Claude, via the MCP server at `mcp.agentic-firmenbuch.at`, with twelve German skills: seven workflows (screen, deep-dive, peers, person search, watch, CSV, research into Excel) and five output formats (standardised company card, multi-year balance-sheet table, key-figure chart from a fixed template, sector comparison, data rules), plus `BEST_PRACTICES.md`. The product and its users are German-speaking, so this README is in German.
 
 Dieses Plugin verbindet Claude mit dem **österreichischen Firmenbuch** und dem **deutschen
-Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt elf
-deutsche Skills mit: sechs Arbeitsabläufe, die Claude zeigen, welche Werkzeuge in welcher
+Handelsregister** über den MCP-Server `https://mcp.agentic-firmenbuch.at/mcp` und bringt zwölf
+deutsche Skills mit: sieben Arbeitsabläufe, die Claude zeigen, welche Werkzeuge in welcher
 Reihenfolge zu verwenden sind, und fünf Ausgabeformate, die jede Antwort gleich aufbauen, damit
 sie überfliegbar und zwischen Firmen und Ländern vergleichbar ist.
+
+**Skills sind für Claude, nicht für Sie.** Sie müssen keinen Skill kennen oder aufrufen: Sie sagen
+in Worten, was Sie wollen, Claude wählt den passenden Skill und hält sich an sein Format. Die
+Tabellen unten zeigen nur, was Sie bekommen.
 
 Österreich: alle eingetragenen Firmen mit Jahresabschlüssen, Kennzahlen, Organen und Urkunden.
 Deutschland: Stammdaten aller Handelsregisterfirmen; Jahresabschlüsse Bundesland für Bundesland im
@@ -43,6 +47,7 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 | `geschaeftsfuehrer-finden` | Die Firmen finden, in denen eine Person eine Organfunktion hat |
 | `neue-firmen-beobachten` | Neugründungen und Registeränderungen einer Branche in einer Region verfolgen |
 | `liste-als-csv` | Eine gefilterte Firmenliste prüfen und als CSV exportieren |
+| `recherche-excel` | Viele Firmen nach Kriterien recherchieren und alle Stammdaten und Kennzahlen als Excel-Datei liefern (zwei Blätter: Firmen, Abfrage) |
 
 **Ausgabeformate** (wie das Ergebnis aussieht, immer gleich aufgebaut):
 
@@ -50,19 +55,26 @@ mit Bildern: https://www.agentic-firmenbuch.at/cowork.html
 |---|---|
 | `firmenkarte` | Eine Firma als standardisierte Karte: 18 feste Zeilen von Rechtsform bis Datenstand, Österreich und Deutschland gleich |
 | `bilanz-tabelle` | Bilanz, GuV und Kennzahlen als Mehrjahrestabelle (bis fünf Jahre, feste Positionen, T€, Aufwände negativ) |
-| `kennzahlen-grafik` | Bilanzsumme, Eigenkapital, Umsatz, Ergebnis und Quoten über die Jahre als Grafik (Artefakt, Datei oder Text) |
-| `branchen-vergleich` | Die Firma gegen Firmen derselben Branche (NACE-Abschnitt oder enger) und Größenklasse: Tabelle, Median, Rang |
-| `datenregeln` | Die Regeln für jede Zahl: fehlende Werte nie als 0, Jahr und Einheit, Vorzeichen, Budget, Personen |
+| `kennzahlen-grafik` | Bilanzsumme, Eigenkapital, Umsatz, Ergebnis und Quoten über die Jahre als Grafik aus einer festen Vorlage (Artefakt in claude.ai, Datei in Claude Code) |
+| `branchen-vergleich` | Die Firma gegen Firmen derselben Branche (NACE-Abschnitt oder enger) und Größenklasse: Tabelle, Median, Rang, Perzentile |
+| `datenregeln` | Die fünf Regeln für jede Zahl: nur Registerdaten, fehlende Werte nie als 0, Jahr und Einheit, keine Feldnamen |
 
 Die Begründung hinter den Formaten steht in [`BEST_PRACTICES.md`](BEST_PRACTICES.md).
 
-## Beispiele
+## So sagen Sie es, das bekommen Sie
 
-- „Aktive GmbHs in Oberösterreich mit Bilanzsumme über 5 Mio. €, sortiert nach Umsatz."
-- „Vergleiche die Red Bull GmbH mit ihren Peers derselben Größenklasse und zeige die Kennzahlenentwicklung."
-- „Welche Unternehmen in Bayern hatten im letzten Monat einen Geschäftsführerwechsel?"
-- „Firmenkarte der Palfinger AG." · „Bilanz und GuV der letzten fünf Jahre als Tabelle."
-- „Zeichne die Umsatz- und Ergebnisentwicklung." · „Wie steht die Firma in ihrer Branche da?"
+| Sie sagen | Sie bekommen |
+|---|---|
+| „Firmenkarte der Red Bull GmbH." | Eine Tabelle mit 18 Zeilen: Rechtsform, Sitz, Register-ID, Branche, Geschäftsführung, Größe, letzter Abschluss, Bilanzsumme, Eigenkapitalquote, Umsatz, Datenstand |
+| „Bilanz und GuV der Hermann Pfanner Getränke GmbH als Tabelle." | Drei Tabellen (Bilanz, GuV, Kennzahlen), bis fünf Jahre nebeneinander, Trend |
+| „Zeichne die Entwicklung von Umsatz und Ergebnis der Red Bull GmbH." | Zuerst die Zahlen als Tabelle, dann zwei Grafiken (Beträge als Balken, Quoten als Linien) |
+| „Wie steht die Adolf Darbo AG in ihrer Branche da?" | Tabelle mit zehn Vergleichsfirmen derselben Branche und Größe, Median, Rang; auf Wunsch Perzentile |
+| „Alle aktiven Getränkehersteller in Österreich über 10 Mio. € Bilanzsumme als Excel." | Eine Excel-Datei mit allen Firmen und 24 Spalten, dazu ein Blatt mit Abfrage, Datum und Quelle |
+| „Welche Firmen in Bayern hatten im letzten Monat einen Geschäftsführerwechsel?" | Eine Liste der Registeränderungen mit Datum und Firma |
+| „Wo ist Max Mustermann Geschäftsführer?" | Die Firmen mit dieser Organfunktion, mit dem Hinweis, dass gleiche Namen nicht dieselbe Person sind |
+
+Fehlt ein Wert, steht „–" mit dem Grund, nie eine 0. Jede Zahl trägt ihr Jahr. Jede Antwort endet
+mit Quelle und Datenstand.
 
 ## Zugang und Preis
 

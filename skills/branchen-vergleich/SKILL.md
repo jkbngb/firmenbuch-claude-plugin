@@ -23,9 +23,8 @@ Region.
      Abteilung → Abschnitt), `same_sector_level` nennt die erreichte Ebene, `note` sagt, ob
      Firmen anderer Branchen auffüllen. Deutschland liefert die nach Tätigkeitstext ähnlichsten
      Firmen. `cross_border=true` nur auf Wunsch (Bedeutungs-, kein Zahlenvergleich). Die
-     Peer-Zeilen stehen in `peers_home`; ist die Liste leer, vor „keine Peers" erst
-     `home_envelope.result.peers` und `note` lesen (dort steht die Liste des Registers samt
-     Erweiterungen des Aktualitätsfensters).
+     Peer-Zeilen stehen in `peers_home`; `home_envelope.note` sagt, ob das Aktualitätsfenster
+     erweitert wurde.
    - **Eigene Gruppe** (wenn Ebene oder Region vorgegeben sind): `search_companies` mit
      `nace_section` (oder `oenace_division` / `oenace_group` für enger), `size_gkl` der Firma,
      `status` `active`, `has_guv_latest` true wenn Margen verglichen werden, optional
@@ -47,6 +46,8 @@ Bilanzsumme absteigend:
 | Firma | Sitz | Jahr | Bilanzsumme T€ | EK-Quote % | Umsatz T€ | Beschäftigte (Jahr) |
 |---|---|---:|---:|---:|---:|---|
 
+**Alle sieben Spalten sind Pflicht**, auch „Beschäftigte (Jahr)": trägt keine Zeile einen Wert,
+bleibt die Spalte mit „–" stehen und eine Fußnote sagt „Beschäftigte im Register nicht erfasst".
 Die Spalten kommen aus den Trefferkarten: `bilanzsumme_latest`, `equity_ratio_latest`,
 `revenue_latest` mit `revenue_year`, `employees_latest` mit `employees_year`, Jahr =
 `last_filing_year` bzw. `latest_year` der Peer-Zeile. Eine Spalte **EBIT-Marge %** nur, wenn die
@@ -55,14 +56,34 @@ Zeilen sie tragen (`benchmark_company`-Peers) oder ausdrücklich gewünscht; dan
 
 Darunter eine Zeile **Median der Vergleichsfirmen** je Spalte (ohne die Firma selbst) und eine Zeile
 **Rang der Firma** („3 von 11 nach Bilanzsumme, 7 von 11 nach EK-Quote"). Dann drei Sätze
-Einordnung: Größe, Kapitalausstattung, Ertragskraft relativ zur Gruppe. Bei Perzentilen aus
-`benchmark_company` ein eigener Absatz „Innerhalb der Größenklasse <gkl> (alle Branchen):
-Bilanzsumme P<xx>, …". Die Perzentile gelten über alle Branchen derselben Größenklasse; die
-Branche der Firma (`section`) beschreibt sie nur, sie grenzt die Perzentile nicht ein.
+Einordnung, jeder zu einer Spalte der Tabelle: Größe, Kapitalausstattung, Ertragskraft relativ zur
+Gruppe. Bei Perzentilen aus `benchmark_company` ein eigener Absatz mit genau dieser Überschrift:
+„**Innerhalb der Größenklasse <gkl>, alle Branchen Österreichs**", darunter „Bilanzsumme P<xx>,
+EK-Quote P<xx>". Die Perzentile gelten über alle Branchen derselben Größenklasse; das
+`section`-Feld der Antwort beschreibt nur die Firma. In dieser Überschrift steht **nie** ein
+Branchencode oder Abschnittsname.
 
-Anbieten: engere Ebene (`oenace_group`), andere Region, Export (`export_companies_csv`, Pro).
+Anbieten: engere Ebene (`oenace_group`), andere Region, Excel-Recherche (`recherche-excel`).
 
-## Regeln
+## Fünf Regeln, die in jeder Antwort gelten
+
+1. **Nur Registerdaten.** Jede Zahl und jeder Satz stammt aus der Antwort des Servers. Nichts aus
+   Vorwissen, Websites oder Geschäftsberichten ergänzen, auch nicht als „bekanntlich".
+2. **Fehlt ein Abschluss, nur der Befund.** Ein Satz: „Kein Jahresabschluss im Firmenbuch erfasst
+   (Stand <Datum>)" oder „Abschlüsse nur als PDF hinterlegt". Keine Vermutung über Rechtsform, Größe,
+   Konzern oder Offenlegungspflicht als Grund.
+3. **Nie 0 für einen fehlenden Wert.** „–" mit dem Grund in zwei Worten.
+4. **Jede Zahl mit Jahr und Einheit.** T€ mit Tausenderpunkt („12.345 T€ (2024)"), über 100 Mio. €
+   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle.
+5. **Keine Feldnamen des Servers in der Antwort.** Nicht `has_pdf_only`, `series_sign_flip`,
+   `reporting_status`, `filing_years_available`, sondern Worte: „nur als PDF hinterlegt",
+   „Vorzeichen vereinheitlicht", „kein Abschluss veröffentlicht".
+
+## Weitere Regeln
+
+- Einstufungen des Servers (`growth_profile`, Hinweise wie „überkapitalisiert") sind aus den
+  Kennzahlen abgeleitet, nicht Aussagen des Registers: „nach den Kennzahlen", nie „das Register
+  weist aus".
 
 - Hat die Firma selbst keine Zahlen (keine Einreichung, nur PDF, `reporting_status`), bleibt sie
   mit „–" in der ersten Zeile, die Gruppe wird trotzdem gezeigt, Rang „nicht ermittelbar", und ein

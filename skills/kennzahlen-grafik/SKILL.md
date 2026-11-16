@@ -1,62 +1,84 @@
 ---
 name: kennzahlen-grafik
-description: Die wichtigsten Finanzkennzahlen einer Firma über die Jahre als Grafik darstellen (Bilanzsumme, Eigenkapital, Umsatz, Ergebnis, Eigenkapitalquote, Margen). Verwenden, wenn jemand ein Diagramm, einen Chart, eine Visualisierung, einen Verlauf oder eine Entwicklung „als Grafik" sehen will.
+description: Die wichtigsten Finanzkennzahlen einer Firma über die Jahre als Grafik darstellen (Bilanzsumme, Eigenkapital, Umsatz, Ergebnis, Eigenkapitalquote, Margen), aus einer fertigen Vorlage, immer gleich gestaltet. Verwenden, wenn jemand ein Diagramm, einen Chart, eine Visualisierung, einen Verlauf oder eine Entwicklung „als Grafik" sehen will.
 ---
 
 # Kennzahlen-Grafik
 
-Beispiel: „Zeichne die Umsatz- und Ergebnisentwicklung der Palfinger AG." · „Bilanzsumme und
-Eigenkapitalquote der letzten fünf Jahre als Chart."
+Beispiel: „Zeichne die Umsatz- und Ergebnisentwicklung der Red Bull GmbH." · „Bilanzsumme und
+Eigenkapitalquote der letzten Jahre als Chart."
 
 Eingabe: Firmenname oder Register-ID, optional die gewünschten Kennzahlen.
+
+Die Gestaltung ist entschieden: die Datei `template.html` neben dieser Datei zeichnet zwei Grafiken
+(Balken für Beträge, Linien für Quoten) samt Tabellen und Fußzeile aus **einem Datenblock**. Die
+Aufgabe ist, die Zahlen zu holen und den Datenblock zu füllen. **Kein eigenes HTML, SVG, React oder
+Python schreiben, nichts am Aussehen entscheiden.** Das hält die Antwort unter einer Minute und
+macht jede Grafik gleich.
 
 ## Vorgehen
 
 1. Register-ID klären (`search_companies`, `page_size` 3) oder die ID direkt nehmen.
-2. `get_company_history` für die ID. Für Österreich `metrics` eng setzen, z. B.
+2. `get_company_history` für die ID mit `metrics`
    `["bilanzsumme", "eigenkapital", "umsatzerloese", "jahresueberschuss", "equity_ratio",
-   "ebit_margin"]`; Deutschland liefert alle vorhandenen Reihen. Die Antwort ist je Kennzahl ein
-   Objekt `{history: {Jahr: Wert}, latest, latest_year}`.
-3. Nur Jahre zeichnen, die wirklich einen Wert tragen. Keine Lücke füllen, keine Trendlinie durch
-   fehlende Jahre, keine Prognose.
+   "ebit_margin", "net_margin"]` (Deutschland liefert alle vorhandenen Reihen). Die Antwort ist je
+   Kennzahl ein Objekt `{history: {Jahr: Wert}, latest, latest_year}`.
+3. **Zuerst die Zahlen als Text**: eine Tabelle Kennzahl × Jahr (Beträge in T€ oder Mio. €, Quoten
+   in %), neuestes Jahr rechts, Quelle und Datenstand darunter. Damit hat die Person die Werte, auch
+   wenn sie die Grafik nicht öffnet.
+4. **Dann die Grafik aus der Vorlage**: `template.html` lesen (im Ordner dieses Skills, in Claude
+   Code `${CLAUDE_PLUGIN_ROOT}/skills/kennzahlen-grafik/template.html`), nur den Block zwischen
+   `// === DATEN` und `// === Ende DATEN` ersetzen, sonst nichts ändern.
 
-## Zwei Standardgrafiken
+```js
+const DATA = {
+  firma: "<identity.name>", id: "<AT:fnr oder DE:id>", konzern: <financials.konzern, true/false>,
+  datenstand: "<provenance.built_at, Datum>", quelle: "Firmenbuch (BMJ) · CC BY 4.0",   // DE: "Handelsregister der Länder"
+  jahre: [2022, 2023, 2024, 2025],                     // alle Jahre, die in irgendeiner Reihe vorkommen, aufsteigend, höchstens die acht jüngsten
+  betraege: {                                          // Euro, nicht T€; fehlendes Jahr = null
+    "Bilanzsumme": [...], "Eigenkapital": [...], "Umsatzerlöse": [...], "Jahresüberschuss": [...]
+  },
+  quoten: {                                            // Bruch wie geliefert (0,35 = 35 %); fehlendes Jahr = null
+    "Eigenkapitalquote": [...], "EBIT-Marge": [...], "Umsatzrendite": [...]
+  }
+};
+```
 
-**Grafik 1 · Größe und Ergebnis** (Balken, T€ oder Mio. €): Bilanzsumme, Eigenkapital, Umsatzerlöse
-(oder Rohergebnis, dann so beschriften), Jahresüberschuss. Negative Ergebnisse nach unten.
+   Reihe `rohergebnis` statt `umsatzerloese`: Schlüssel „Rohergebnis" nennen. Reihen mit weniger als
+   zwei Werten lässt die Vorlage selbst weg und nennt sie unter der Grafik; sie müssen nicht
+   entfernt werden. Einheit (T€ oder Mio. €), Achsen, Farben und Tabellen setzt die Vorlage.
 
-**Grafik 2 · Quoten** (Linien, %): Eigenkapitalquote, EBIT-Marge, Umsatzrendite; nur die Reihen mit
-mindestens zwei Werten. Ohne GuV nur die Eigenkapitalquote.
+## Wo die Grafik erscheint
 
-Immer: Jahre auf der x-Achse in Zeitfolge, Einheit in der Achsenbeschriftung, Titel = Firmenname +
-Register-ID, Fußzeile „Quelle: Firmenbuch (BMJ) / Handelsregister · Datenstand <provenance.built_at>".
-Konzernabschluss (`financials.konzern`) in den Titel. Maximal zwei Grafiken, maximal vier Reihen je
-Grafik.
+- **claude.ai, Claude Desktop, Cowork:** ein Artefakt mit dem vollständigen Inhalt der Vorlage (nur der
+  Datenblock gefüllt). Es rendert sofort im Gespräch.
+- **Claude Code:** die gefüllte Vorlage als Datei `kennzahlen-<register-id>.html` ins
+  Arbeitsverzeichnis schreiben und den Pfad nennen. Nichts veröffentlichen (kein Artefakt, kein
+  Upload), nichts installieren, kein PNG, außer ausdrücklich gewünscht.
+- **Reiner Text:** nur die Tabelle aus Schritt 3, je Reihe ein Balken aus `█`-Zeichen mit Skala.
 
-## Wie zeichnen, je nach Umgebung
+## Fünf Regeln, die in jeder Antwort gelten
 
-- **claude.ai, Claude Desktop, Cowork:** ein Artefakt (HTML mit eingebettetem SVG oder React). Werte
-  fest einbetten, keine externen Daten laden. Farben: eine ruhige Palette, Eigenkapital und
-  Eigenkapitalquote in derselben Farbe.
-- **Claude Code:** eine Datei `kennzahlen-<register-id>.html` mit eingebettetem SVG in das
-  Arbeitsverzeichnis schreiben und den Pfad nennen. Ist Python mit matplotlib vorhanden, zusätzlich
-  ein PNG. Keine Pakete installieren, nichts veröffentlichen (kein Artefakt, kein Upload), außer
-  ausdrücklich gewünscht.
-- **Reiner Text:** Tabelle mit Jahr, Wert und einem Balken aus `█`-Zeichen je Reihe, Skala
-  angegeben.
+1. **Nur Registerdaten.** Jede Zahl und jeder Satz stammt aus der Antwort des Servers. Nichts aus
+   Vorwissen, Websites oder Geschäftsberichten ergänzen, auch nicht als „bekanntlich".
+2. **Fehlt ein Abschluss, nur der Befund.** Ein Satz: „Kein Jahresabschluss im Firmenbuch erfasst
+   (Stand <Datum>)" oder „Abschlüsse nur als PDF hinterlegt". Keine Vermutung über Rechtsform, Größe,
+   Konzern oder Offenlegungspflicht als Grund.
+3. **Nie 0 für einen fehlenden Wert.** „–" mit dem Grund in zwei Worten.
+4. **Jede Zahl mit Jahr und Einheit.** T€ mit Tausenderpunkt („12.345 T€ (2024)"), über 100 Mio. €
+   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle.
+5. **Keine Feldnamen des Servers in der Antwort.** Nicht `has_pdf_only`, `series_sign_flip`,
+   `reporting_status`, `filing_years_available`, sondern Worte: „nur als PDF hinterlegt",
+   „Vorzeichen vereinheitlicht", „kein Abschluss veröffentlicht".
 
-Unter jede Grafik dieselbe Mehrjahrestabelle wie in `bilanz-tabelle` (Kurzform: nur die gezeichneten
-Reihen), damit jede Zahl nachlesbar ist.
+## Weitere Regeln
 
-## Regeln
-
-- Eine Kennzahl mit nur einem Wert wird nicht gezeichnet, sondern als Zahl genannt.
-- Beschäftigte nie in dieselbe Grafik wie Umsatz (verschiedene Jahre, siehe `datenregeln`).
-- Deutsche Firma ohne Zahlen (`reporting_status` nicht `available`): keine Grafik, ein Satz mit dem
-  Grund. Nie eine leere Achse zeichnen.
-- Leere `metrics` bei einer österreichischen Firma: das Register hält die Abschlüsse nur als PDF
-  (`has_pdf_only`, `register_documents`) oder gar nicht. Ein Satz mit dem Befund, dann
-  `list_documents` → `get_document` anbieten. Keine Zahlen aus Geschäftsberichten, Websites oder
-  Vorwissen ersetzen, keine Vermutung über Gründe.
-- Zwei Firmen in einer Grafik nur bei gleicher Währung und gleicher Einheit; dann je Firma eine
-  Farbe, nie Konzern- gegen Einzelabschluss.
+- Leere `metrics` (Österreich) oder `reporting_status` nicht `available` (Deutschland): keine
+  Grafik, keine leere Achse. Ein Satz mit dem Befund aus Regel 2, dann `list_documents` →
+  `get_document` anbieten.
+- Eine Kennzahl mit nur einem Wert wird als Zahl genannt, nicht gezeichnet.
+- Beschäftigte nie in dieselbe Grafik wie Umsatz (verschiedene Jahre).
+- Zwei Firmen in einer Grafik nur auf Wunsch, nur bei gleicher Einheit, nie Konzern- gegen
+  Einzelabschluss; dann je Firma eine eigene Vorlage.
+- Unter die Grafik ein bis drei Sätze, jeder zu einer gezeichneten Reihe (Richtung, Größenordnung).
+  Nichts, was nicht in den Zahlen steht.

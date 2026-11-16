@@ -48,11 +48,28 @@ Zeile erfinden.
 | **Letzte Änderung** | neuestes `events[]`-Element (Datum, Typ) | `company.letzte_eintragung` |
 | **Datenstand** | `provenance.built_at` als Datum, Quelle „Firmenbuch (BMJ)" | `provenance.built_at`, „Handelsregister" |
 
-Darunter genau drei Zeilen Text: was die Firma tut, wie groß sie ist, was auffällt (z. B. Liquidation,
-sehr alte Mitarbeiterzahl, nur Bilanz ohne GuV, Konzernabschluss). Dann anbieten: Bilanz-Tabelle
+Darunter genau drei Sätze, **jeder zu einer Zeile der Karte**: was die Firma tut (Zeile Tätigkeit),
+wie groß sie ist (Größenklasse, Bilanzsumme, Umsatz), was auffällt (Liquidation, alte
+Mitarbeiterzahl, nur Bilanz ohne GuV, Konzernabschluss, niedrige Branchen-Konfidenz). Was nicht in
+der Karte steht, steht auch nicht im Text: keine Konzernzugehörigkeit, keine Marken, keine
+Rangaussagen wie „eines der größten", keine Geschichte der Firma. Dann anbieten: Bilanz-Tabelle
 (`bilanz-tabelle`), Kennzahlen-Grafik (`kennzahlen-grafik`), Branchenvergleich (`branchen-vergleich`).
 
-## Regeln
+## Fünf Regeln, die in jeder Antwort gelten
+
+1. **Nur Registerdaten.** Jede Zahl und jeder Satz stammt aus der Antwort des Servers. Nichts aus
+   Vorwissen, Websites oder Geschäftsberichten ergänzen, auch nicht als „bekanntlich".
+2. **Fehlt ein Abschluss, nur der Befund.** Ein Satz: „Kein Jahresabschluss im Firmenbuch erfasst
+   (Stand <Datum>)" oder „Abschlüsse nur als PDF hinterlegt". Keine Vermutung über Rechtsform, Größe,
+   Konzern oder Offenlegungspflicht als Grund.
+3. **Nie 0 für einen fehlenden Wert.** „–" mit dem Grund in zwei Worten.
+4. **Jede Zahl mit Jahr und Einheit.** T€ mit Tausenderpunkt („12.345 T€ (2024)"), über 100 Mio. €
+   in Mio. € mit einer Nachkommastelle, Quoten in % mit einer Nachkommastelle.
+5. **Keine Feldnamen des Servers in der Antwort.** Nicht `has_pdf_only`, `series_sign_flip`,
+   `reporting_status`, `filing_years_available`, sondern Worte: „nur als PDF hinterlegt",
+   „Vorzeichen vereinheitlicht", „kein Abschluss veröffentlicht".
+
+## Weitere Regeln
 
 - Beträge in **Tausend Euro mit Jahr**: „12.345 T€ (2024)". Über 100 Mio. € in Mio. € mit einer
   Nachkommastelle. Quoten in Prozent mit einer Nachkommastelle.
@@ -62,7 +79,7 @@ sehr alte Mitarbeiterzahl, nur Bilanz ohne GuV, Konzernabschluss). Dann anbieten
   („– noch nicht erfasst"). **Nie „0", nie „keine Umsätze".**
 - Fehlende österreichische GuV (`has_guv_latest` false): Umsatz „– verkürzte GuV / nur Bilanz".
 - Bei `financials.konzern` true: Zeile „Bilanzsumme" mit Zusatz „(Konzern)".
-- Nur Registerdaten in der Karte und in den drei Sätzen: nichts aus Vorwissen, Websites oder
-  Geschäftsberichten ergänzen, keine Vermutung, warum ein Abschluss fehlt.
+- Branche mit niedriger Konfidenz (`industry.confidence` low, aus dem Unternehmensgegenstand
+  klassifiziert): in der Zeile „(aus dem Tätigkeitstext abgeleitet, unsicher)" anfügen.
 - Personen: nur Name, Funktion, Geburtsjahr-genaues Alter, wie geliefert. Keine Suche nach weiteren
   Personendaten, keine Zusammenführung über andere Quellen.

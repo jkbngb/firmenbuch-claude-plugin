@@ -5,7 +5,7 @@
 > loads automatically; this file carries the reasoning and the exact field names.
 
 Diese Regeln gelten für jede Antwort, Tabelle und Grafik, die Zahlen aus dem Firmenbuch-MCP-Server
-enthält. Die Skills `firmenkarte`, `bilanz-tabelle`, `kennzahlen-grafik` und `branchen-vergleich`
+enthält. Die Skills `firmenkarte`, `bilanz-tabelle`, `kennzahlen-grafik`, `branchen-vergleich` und `recherche-excel`
 setzen sie um; `datenregeln` ist die Kurzfassung, die Claude vor jeder Zahl lädt.
 
 ## 1. Warum ein festes Format
@@ -110,3 +110,31 @@ automatisiert verarbeitet und ohne Gewähr bereitgestellt; maßgeblich ist der a
 4. Vergleicht die Tabelle gleiche Kennzahlen gleicher Jahre?
 5. Steht die Quelle mit Datenstand darunter?
 6. Wurden nur so viele Firmen geladen, wie die Frage braucht?
+
+## 9. Grafik und Excel: Vorlage statt Gestaltung
+
+Eine Grafik, die Claude jedes Mal neu entwirft, dauert Minuten, kostet ein Vielfaches und sieht
+jedes Mal anders aus. Darum zeichnet `kennzahlen-grafik` aus der festen Vorlage
+`skills/kennzahlen-grafik/template.html`: zwei Grafiken (Beträge als Balken, Quoten als Linien),
+Tabellen und Fußzeile entstehen aus **einem Datenblock**, den Claude füllt. Nichts am Aussehen wird
+entschieden, kein eigenes HTML, SVG, React oder Python geschrieben. In claude.ai, Claude Desktop und
+Cowork erscheint die gefüllte Vorlage als Artefakt, in Claude Code als Datei. Vor der Grafik stehen
+die Zahlen immer als Texttabelle, damit niemand die Grafik öffnen muss, um die Werte zu lesen.
+
+Für Recherchen über viele Firmen schreibt `recherche-excel` eine Datei mit festen Spalten (Blatt
+„Firmen") und einem Blatt „Abfrage" (Filter, Datum, Trefferzahl, Quelle, Budget). Die Trefferkarten
+von `search_companies` tragen alle Spalten; `get_company_details` ist nur für ein Zusatzblatt
+„Details" nötig. Keine Personenspalte: Listen von Organen über viele Firmen sind nicht zulässig
+(Abschnitt 6).
+
+## 10. Die fünf Regeln, wortgleich in jedem Format
+
+1. Nur Registerdaten: nichts aus Vorwissen, Websites oder Geschäftsberichten.
+2. Fehlt ein Abschluss, nur der Befund: keine Vermutung über Rechtsform, Größe, Konzern oder
+   Offenlegungspflicht als Grund.
+3. Nie 0 für einen fehlenden Wert: „–" mit Grund.
+4. Jede Zahl mit Jahr und Einheit.
+5. Keine Feldnamen des Servers in der Antwort: Worte statt `has_pdf_only` oder `series_sign_flip`.
+
+Die Regeln stehen in `datenregeln` mit einer Tabelle „Verboten und richtig" und wortgleich in jedem
+Format-Skill, damit sie auch dann gelten, wenn nur ein Skill geladen wird.
