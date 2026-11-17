@@ -11,7 +11,7 @@ Die Datei zwischen den Zäunen ist die vollständige Vorlage. Sie wird unveränd
 <title>Kennzahlen</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #f4f5f7; color: #1a1a2e; padding: 24px 16px; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background: #F5F6F7; color: #17211C; padding: 24px 16px; }
   .card { background: #fff; border-radius: 12px; padding: 24px 28px; box-shadow: 0 2px 10px rgba(0,0,0,.08); max-width: 820px; margin: 0 auto 20px; }
   h1 { font-size: 1.05rem; font-weight: 700; }
   h2 { font-size: .9rem; font-weight: 600; margin: 4px 0 10px; color: #333; }
@@ -76,8 +76,8 @@ const DATA = {
 <script>
 (function () {
   const NS = "http://www.w3.org/2000/svg";
-  const COLORS = ["#4A7DC4", "#2A9D8F", "#E07040", "#57A773", "#8E6BB8", "#C9A227"];
-  const COLOR_OF = { "Eigenkapital": "#2A9D8F", "Eigenkapitalquote": "#2A9D8F" };
+  const COLORS = ["#0A6B3D", "#3FBF7F", "#0E8F52", "#9AA79D", "#17211C", "#5F6F65"];  // Agentic Firmenbuch: Grün-Rampe, Grau-Grün, Tinte
+  const COLOR_OF = { "Eigenkapital": "#3FBF7F", "Eigenkapitalquote": "#3FBF7F" };
   const fmt = (v, d) => v == null ? "–" : v.toLocaleString("de-DE", { minimumFractionDigits: d, maximumFractionDigits: d });
   const el = (t, a, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; return e; };
   const years = DATA.jahre.map(String);
@@ -110,7 +110,7 @@ const DATA = {
   function axes(svg, W, H, ml, mr, mt, mb, tk, unit) {
     const ph = H - mt - mb, pw = W - ml - mr, y = v => mt + ph - (v - tk.lo) / (tk.hi - tk.lo) * ph;
     tk.t.forEach(v => {
-      svg.appendChild(el("line", { x1: ml, y1: y(v), x2: ml + pw, y2: y(v), stroke: v === 0 ? "#999" : "#eceef1", "stroke-width": v === 0 ? 1.2 : 1 }));
+      svg.appendChild(el("line", { x1: ml, y1: y(v), x2: ml + pw, y2: y(v), stroke: v === 0 ? "#9AA79D" : "#E3EFE8", "stroke-width": v === 0 ? 1.2 : 1 }));
       svg.appendChild(el("text", { x: ml - 8, y: y(v) + 4, "text-anchor": "end", "font-size": 11, fill: "#888" }, fmt(v, 0)));
     });
     svg.appendChild(el("text", { x: 12, y: mt + ph / 2, "text-anchor": "middle", "font-size": 10, fill: "#999", transform: "rotate(-90,12," + (mt + ph / 2) + ")" }, unit));
